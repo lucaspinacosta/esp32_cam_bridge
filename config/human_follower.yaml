@@ -1,0 +1,20 @@
+human_follower:
+  ros__parameters:
+    image_topic: "/esp32/camera/image_raw"
+    cmd_vel_topic: "/cmd_vel"
+    led_state_topic: "/esp32/led_state"
+    status_topic: "/human_follower/status"
+    image_qos_reliability: "reliable"
+    process_fps: 5.0
+    lost_timeout_sec: 1.0
+    target_height_fraction: 0.35
+    center_deadband: 0.08
+    turn_slowdown_threshold: 0.35
+    angular_gain: 1.2
+    linear_gain: 0.8
+    max_angular_speed: 1.0
+    max_linear_speed: 0.35
+    min_linear_speed: 0.05
+    min_detection_weight: 0.3
+    hog_scale: 1.05
+    stop_when_no_detection: true

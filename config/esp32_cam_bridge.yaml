@@ -1,0 +1,12 @@
+esp32_cam_bridge:
+  ros__parameters:
+    esp32_ip: "192.168.1.181"
+    control_port: 80
+    stream_port: 81
+    stream_path: "/stream"
+    image_topic: "/esp32/camera/image_raw"
+    camera_info_topic: "/esp32/camera/camera_info"
+    frame_id: "esp32_camera"
+    publish_fps: 15.0
+    http_timeout_sec: 0.5
+    image_qos_reliability: "reliable"
