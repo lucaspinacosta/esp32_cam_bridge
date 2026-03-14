@@ -10,14 +10,14 @@ human_follower:
     target_height_fraction: 0.35
     camera_horizontal_fov_deg: 62.0
     desired_follow_distance_m: 1.0
-    min_goal_distance_m: 0.0
-    max_goal_distance_m: 2.0
+    min_goal_distance_m: 1.0
+    max_goal_distance_m: 5.0
     goal_update_period_sec: 0.75
     goal_position_tolerance_m: 0.20
     goal_yaw_tolerance_rad: 0.25
     nav_action_name: "navigate_to_pose"
-    global_frame: "map"
-    base_frame: "base_link"
+    global_frame: "odom"
+    base_frame: "map"
     min_detection_weight: 0.3
     hog_scale: 1.05
     cancel_nav_on_lost: true
