@@ -26,7 +26,8 @@ This package is designed around the updated ESP32 firmware in
 
 - `human_follower`
   Subscribes to the camera image, detects the largest visible person with
-  OpenCV HOG, and publishes velocity commands on `/cmd_vel`.
+  OpenCV HOG, estimates a target pose from the person box, and sends
+  `NavigateToPose` goals to Nav2.
 - `esp32_camera_follow.launch.py`
   Launches both nodes together using YAML config files.
 
@@ -42,7 +43,7 @@ Package dependencies are declared in `package.xml`.
 ## Build
 
 ```bash
-cd /home/lucaspinacosta/criarte_ws
+cd /home/{$USER}/{$ROS_WS}
 colcon build --packages-select esp32_cam_bridge
 source install/setup.bash
 ```
@@ -94,7 +95,7 @@ Published:
 - `/esp32/camera/camera_info`
 - `/esp32/camera/status`
 - `/human_follower/status`
-- `/cmd_vel`
+- `/human_follower/goal_pose`
 
 Subscribed:
 
@@ -144,25 +145,29 @@ ros2 run tf2_ros static_transform_publisher \
 ### `human_follower`
 
 - `image_topic`
-- `cmd_vel_topic`
+- `goal_topic`
 - `process_fps`
 - `lost_timeout_sec`
 - `target_height_fraction`
-- `center_deadband`
-- `turn_slowdown_threshold`
-- `angular_gain`
-- `linear_gain`
-- `max_angular_speed`
-- `max_linear_speed`
-- `min_linear_speed`
+- `camera_horizontal_fov_deg`
+- `desired_follow_distance_m`
+- `min_goal_distance_m`
+- `max_goal_distance_m`
+- `goal_update_period_sec`
+- `goal_position_tolerance_m`
+- `goal_yaw_tolerance_rad`
+- `nav_action_name`
+- `global_frame`
+- `base_frame`
 - `min_detection_weight`
 - `hog_scale`
-- `stop_when_no_detection`
+- `cancel_nav_on_lost`
 
 ## Notes
 
-- The `human_follower` node currently drives `/cmd_vel` directly. It is not yet a
-  Nav2 goal-based tracker.
+- The `human_follower` node now depends on Nav2 and TF being available.
+- The target pose is estimated from a monocular image only, so distance is a
+  heuristic derived from the detected person height in the image.
 - Person detection uses OpenCV HOG. It is lightweight, but accuracy is limited
   compared with a modern neural detector.
 - `CameraInfo` is currently a valid uncalibrated estimate, not a real camera
