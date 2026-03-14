@@ -7,7 +7,7 @@ ROS 2 Python package for:
 - and running a basic human-following controller from the camera feed.
 
 This package is designed around the updated ESP32 firmware in
-[`esp32_s3_firmware.txt`](./esp32_s3_firmware.txt), where:
+[`esp32_s3_firmware.ino`](./esp32_s3_firmware.ino), where:
 
 - control, status, and LED endpoints run on port `80`,
 - MJPEG streaming runs on port `81`.
@@ -27,7 +27,6 @@ This package is designed around the updated ESP32 firmware in
 - `human_follower`
   Subscribes to the camera image, detects the largest visible person with
   OpenCV HOG, and publishes velocity commands on `/cmd_vel`.
-
 - `esp32_camera_follow.launch.py`
   Launches both nodes together using YAML config files.
 
